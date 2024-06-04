@@ -1,0 +1,216 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "sso/user.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "UserProfile"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/users/delete": {
+      "post": {
+        "operationId": "UserProfile_DeleteAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ssoDeleteAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ssoDeleteAccountRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserProfile"
+        ]
+      }
+    },
+    "/users/edit": {
+      "post": {
+        "operationId": "UserProfile_EditProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ssoEditProfileResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ssoEditProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserProfile"
+        ]
+      }
+    },
+    "/users/profile": {
+      "post": {
+        "operationId": "UserProfile_ShowProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ssoShowProfileResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ssoShowProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserProfile"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "ssoDeleteAccountRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "ssoDeleteAccountResponse": {
+      "type": "object",
+      "properties": {
+        "succes": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ssoEditProfileRequest": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/ssoUser"
+        }
+      }
+    },
+    "ssoEditProfileResponse": {
+      "type": "object",
+      "properties": {
+        "succes": {
+          "type": "boolean"
+        },
+        "user": {
+          "$ref": "#/definitions/ssoUser"
+        }
+      }
+    },
+    "ssoShowProfileRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "ssoShowProfileResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/ssoUser"
+        }
+      }
+    },
+    "ssoUser": {
+      "type": "object",
+      "properties": {
+        "fname": {
+          "type": "string"
+        },
+        "lname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

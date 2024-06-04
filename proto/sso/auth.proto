@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package sso;
+
+option go_package="gen/go/sso;ssov1";
+
+import "google/api/annotations.proto";
+
+service Auth{
+rpc Register(RegisterRequest)returns(RegisterResponse){
+option(google.api.http) = {
+  post: "/users/register"
+  body: "*"
+};
+};
+rpc Login(LoginRequest)returns(LoginResponse){
+option(google.api.http) = {
+  post: "/users/login"
+  body: "*"
+};
+};
+rpc IsAdmin(IsAdminRequest)returns(IsAdminResponse){
+option(google.api.http) = {
+  post:"/users/isAdmin"
+  body:"*"
+};
+};
+rpc IsAuthenticated(IsAuthenticatedRequest)returns(IsAuthenticatedResponse){
+option(google.api.http)= {
+  post:"/users/isAuthenticated"
+  body:"*"
+};
+};
+}
+message RegisterRequest{
+string fname=1 [json_name="fname"];
+string lname=2 [json_name="lname"];
+string email=3 [json_name="email"];
+string password=4 [json_name="password"];
+}
+message RegisterResponse{
+int64 user_id=1 [json_name="userId"];
+}
+message LoginRequest{
+  string email=1 [json_name="email"];
+  string password=2 [json_name="password"];
+  int32 app_id =3 [json_name="appId"];
+}
+message LoginResponse{
+string token = 1 [json_name="token"];
+}
+message IsAdminRequest{
+int64 user_id=1 [json_name="userId"];
+}
+message IsAdminResponse{
+  bool is_admin=1 [json_name="isAdmin"];
+}
+message IsAuthenticatedRequest{
+string token=1 [json_name="token"];
+}
+message IsAuthenticatedResponse{
+  bool is_authenticated=1 [json_name="is_authenticated"];
+}

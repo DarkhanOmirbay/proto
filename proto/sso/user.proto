@@ -1,0 +1,53 @@
+syntax="proto3";
+
+package sso;
+
+option go_package="gen/go/sso;ssov1";
+
+import "google/api/annotations.proto";
+
+service UserProfile{
+  rpc EditProfile(EditProfileRequest)returns(EditProfileResponse){
+option(google.api.http)= {
+  post:"/users/edit"
+  body:"*"
+};
+  };
+  rpc DeleteAccount(DeleteAccountRequest)returns(DeleteAccountResponse){
+    option(google.api.http)={
+      post:"/users/delete"
+      body:"*"
+    };
+  };
+  rpc ShowProfile(ShowProfileRequest)returns(ShowProfileResponse){
+    option(google.api.http)={
+      post:"/users/profile"
+      body:"*"
+    };
+  };
+}
+message User{
+  string fname=1 [json_name="fname"];
+string lname=2 [json_name="lname"];
+string email=3 [json_name="email"];
+string password=4[json_name="password"];
+    }
+message EditProfileRequest{
+User user = 1 [json_name="user"];
+}
+message EditProfileResponse{
+bool succes=1 [json_name="succes"];
+User updated_user=2 [json_name="user"];
+}
+message DeleteAccountRequest{
+  int64 user_id = 1 [json_name="userId"];
+}
+message DeleteAccountResponse{
+  bool success=1 [json_name="succes"];
+}
+message ShowProfileRequest{
+  int64 user_id=1 [json_name="userId"];
+}
+message ShowProfileResponse{
+  User user=1 [json_name="user"];
+}
