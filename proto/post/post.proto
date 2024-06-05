@@ -1,0 +1,90 @@
+syntax="proto3";
+
+package post;
+
+option go_package="gen/go/post;pv1";
+import "google/api/annotations.proto";
+
+
+service PostService{
+  rpc WritePost(WritePostRequest)returns(PostResponse){
+    option(google.api.http) = {
+      post:"/posts/write"
+      body:"*"
+    };
+  };
+  rpc EditPost(EditPostRequest)returns(PostResponse){
+    option(google.api.http) = {
+      patch:"/posts/edit"
+      body:"*"
+    };
+  };
+rpc DeletePost(DeletePostRequest)returns(DeletePostResponse){
+  option(google.api.http)={
+    delete:"/posts/delete"
+  };
+};
+rpc CommentPost(CommentPostRequest)returns(CommentResponse){
+  option(google.api.http)={
+    post:"/posts/comment"
+    body:"*"
+  };
+};
+rpc LikePost(LikePostRequest)returns(LikePostResponse){
+  option(google.api.http)={
+    post:"/posts/like"
+    body:"*"
+  };
+};
+}
+message Post{
+  int64 id = 1 [json_name="id"];
+  int64 user_id=2 [json_name="userId"];
+  string title =3 [json_name="title"];
+  string content= 4 [json_name="content"];
+  string created_at=5 [json_name="createdAt"];
+  string updated_at=6 [json_name="updatedAt"];
+}
+message Comment{
+  int64 id = 1;
+  int64 post_id=2;
+  int64 user_id=3;
+  string content=4;
+  string created_at=5;
+}
+message WritePostRequest{
+  string token = 1 [json_name="token"];
+  string title = 2 [json_name="title"];
+  string content = 3 [json_name="content"];
+}
+message PostResponse{
+Post post =1 [json_name="post"];
+}
+message EditPostRequest{
+  string token=1 [json_name="token"];
+  int64 id = 2 [json_name="id"];
+  string title = 3 [json_name="title"];
+  string content = 4 [json_name="content"];
+}
+message DeletePostRequest{
+  string token=1 [json_name="token"];
+  int64 id = 2 [json_name="id"];
+}
+message DeletePostResponse{
+  string msg = 1 [json_name="msg"];
+}
+message CommentPostRequest{
+  string token=1 [json_name="token"];
+int64 post_id = 2 [json_name="postId"];
+string content = 3 [json_name="content"];
+}
+message CommentResponse {
+  Comment comment = 1;
+}
+message LikePostRequest {
+  string token = 1;
+  int32 post_id = 2;
+}
+message LikePostResponse{
+  string msg=1 [json_name="msg"];
+}
