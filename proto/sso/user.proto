@@ -9,45 +9,44 @@ import "google/api/annotations.proto";
 service UserProfile{
   rpc EditProfile(EditProfileRequest)returns(EditProfileResponse){
 option(google.api.http)= {
-  post:"/users/edit"
+  patch:"/users/edit/{id}"
   body:"*"
 };
   };
   rpc DeleteAccount(DeleteAccountRequest)returns(DeleteAccountResponse){
     option(google.api.http)={
-      post:"/users/delete"
-      body:"*"
+      delete:"/users/delete/{id}"
     };
   };
   rpc ShowProfile(ShowProfileRequest)returns(ShowProfileResponse){
     option(google.api.http)={
-      post:"/users/profile"
-      body:"*"
+      get:"/users/profile/{id}"
     };
   };
 }
 message User{
-  string fname=1 [json_name="fname"];
-string lname=2 [json_name="lname"];
-string email=3 [json_name="email"];
-string password=4[json_name="password"];
-    }
+  string fname = 1 [json_name="fname"];
+  string lname=2 [json_name="lname"];
+  string email = 3 [json_name="email"];
+  string password=4[json_name="password"];
+}
 message EditProfileRequest{
-User user = 1 [json_name="user"];
+  int64 id=1 [json_name="id"];
+  User user = 2 [json_name="user"];
 }
 message EditProfileResponse{
-bool succes=1 [json_name="succes"];
-User updated_user=2 [json_name="user"];
+  string msg = 1 [json_name="msg"];
+  User updatedUser = 2 [json_name="updatedUser"];
 }
 message DeleteAccountRequest{
-  int64 user_id = 1 [json_name="userId"];
+  int64 id=1[json_name="id"];
 }
 message DeleteAccountResponse{
-  bool success=1 [json_name="succes"];
+  string msg = 1 [json_name="msg"];
 }
 message ShowProfileRequest{
-  int64 user_id=1 [json_name="userId"];
+  int64 id=1[json_name="id"];
 }
 message ShowProfileResponse{
-  User user=1 [json_name="user"];
+  User user = 1 [json_name="user"];
 }
