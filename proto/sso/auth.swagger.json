@@ -204,6 +204,10 @@
       "properties": {
         "is_authenticated": {
           "type": "boolean"
+        },
+        "userId": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
