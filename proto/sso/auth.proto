@@ -60,4 +60,5 @@ string token=1 [json_name="token"];
 }
 message IsAuthenticatedResponse{
   bool is_authenticated=1 [json_name="is_authenticated"];
+  int64 user_id=2[json_name="userId"];
 }
