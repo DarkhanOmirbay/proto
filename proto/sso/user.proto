@@ -9,18 +9,18 @@ import "google/api/annotations.proto";
 service UserProfile{
   rpc EditProfile(EditProfileRequest)returns(EditProfileResponse){
 option(google.api.http)= {
-  patch:"/users/edit/{id}"
+  patch:"/users/edit"
   body:"*"
 };
   };
   rpc DeleteAccount(DeleteAccountRequest)returns(DeleteAccountResponse){
     option(google.api.http)={
-      delete:"/users/delete/{id}"
+      delete:"/users/delete"
     };
   };
   rpc ShowProfile(ShowProfileRequest)returns(ShowProfileResponse){
     option(google.api.http)={
-      get:"/users/profile/{id}"
+      get:"/users/profile"
     };
   };
 }
